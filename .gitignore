@@ -1,0 +1,76 @@
+############################
+# OS-generated files
+############################
+**/.DS_Store
+**/.DS_Store?
+**/Thumbs.db
+**/ehthumbs.db
+**/Desktop.ini
+
+############################
+# Editor / IDE files
+############################
+**/.idea/
+**/.vscode/
+**/*.swp
+**/*.swo
+**/*~
+**/.project
+**/.classpath
+**/.settings/
+
+############################
+# Logs
+############################
+**/*.log
+**/logs/
+**/log/
+
+############################
+# Temporary / cache directories
+############################
+**/tmp/
+**/temp/
+**/.tmp/
+**/.cache/
+**/.cache/**
+
+############################
+# Build / output directories (generic)
+############################
+**/dist/
+**/out/
+**/build/
+**/target/
+**/bin/
+**/obj/
+
+############################
+# Test / coverage outputs
+############################
+**/coverage/
+**/.coverage
+**/*.lcov
+
+############################
+# Environment / secrets
+############################
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.template
+**/*.local
+**/*.secret
+
+############################
+# Package manager noise (generic)
+############################
+**/.npm/
+**/.yarn/
+**/.pnpm-store/
+
+############################
+# OS trash
+############################
+**/.Trash-*
+
