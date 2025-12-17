@@ -1,0 +1,17 @@
+[package]
+name = "nyxlink-engine-core"
+version = "0.1.0"
+edition = "2024"
+description = "Engine Core for secure P2P messaging app. Handles Noise, ratchets, sessions, messages, identity, capability system and memory safety,"
+repository = "https://github.com/jdluques/nyxlink"
+readme = "README.md"
+
+[dependencies]
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+overflow-checks = true
+debug = false
