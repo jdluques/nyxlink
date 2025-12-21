@@ -52,3 +52,45 @@ impl Error for CoreError {
         }
     }
 }
+
+impl From<PrimitiveError> for CoreError {
+    fn from(err: PrimitiveError) -> Self {
+        CoreError::Primitive(err)
+    }
+}
+
+impl From<ProtocolError> for CoreError {
+    fn from(err: ProtocolError) -> Self {
+        CoreError::Protocol(err)
+    }
+}
+
+impl From<IdentityError> for CoreError {
+    fn from(err: IdentityError) -> Self {
+        CoreError::Identity(err)
+    }
+}
+
+impl From<CapabilityError> for CoreError {
+    fn from(err: CapabilityError) -> Self {
+        CoreError::Capability(err)
+    }
+}
+
+impl From<StorageError> for CoreError {
+    fn from(err: StorageError) -> Self {
+        CoreError::Storage(err)
+    }
+}
+
+impl From<InputError> for CoreError {
+    fn from(err: InputError) -> Self {
+        CoreError::InvalidInput(err)
+    }
+}
+
+impl From<ResourceError> for CoreError {
+    fn from(err: ResourceError) -> Self {
+        CoreError::Resource(err)
+    }
+}
