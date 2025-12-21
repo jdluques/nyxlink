@@ -7,6 +7,10 @@ repository = "https://github.com/jdluques/nyxlink"
 readme = "README.md"
 
 [dependencies]
+log = "0.4.29"
+libc = "0.2.178"
+windows-sys = { version = "0.61.2", features = ["Win32_Foundation", "Win32_System_Memory"] }
+zeroize = "1.8.2"
 
 [profile.release]
 opt-level = "z"
