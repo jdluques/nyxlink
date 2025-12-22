@@ -55,42 +55,49 @@ impl Error for CoreError {
 
 impl From<PrimitiveError> for CoreError {
     fn from(err: PrimitiveError) -> Self {
+        log::warn!("{}", err.to_string());
         CoreError::Primitive(err)
     }
 }
 
 impl From<ProtocolError> for CoreError {
     fn from(err: ProtocolError) -> Self {
+        log::warn!("{}", err.to_string());
         CoreError::Protocol(err)
     }
 }
 
 impl From<IdentityError> for CoreError {
     fn from(err: IdentityError) -> Self {
+        log::warn!("{}", err.to_string());
         CoreError::Identity(err)
     }
 }
 
 impl From<CapabilityError> for CoreError {
     fn from(err: CapabilityError) -> Self {
+        log::warn!("{}", err.to_string());
         CoreError::Capability(err)
     }
 }
 
 impl From<StorageError> for CoreError {
     fn from(err: StorageError) -> Self {
+        log::warn!("{}", err.to_string());
         CoreError::Storage(err)
     }
 }
 
 impl From<InputError> for CoreError {
     fn from(err: InputError) -> Self {
+        log::warn!("{}", err.to_string());
         CoreError::InvalidInput(err)
     }
 }
 
 impl From<ResourceError> for CoreError {
     fn from(err: ResourceError) -> Self {
+        log::warn!("{}", err.to_string());
         CoreError::Resource(err)
     }
 }
