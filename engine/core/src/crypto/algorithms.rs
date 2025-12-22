@@ -15,7 +15,7 @@ pub(crate) enum AEAD {
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub(crate) enum Hash {
-    SHA256,
+    SHA512,
 }
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
