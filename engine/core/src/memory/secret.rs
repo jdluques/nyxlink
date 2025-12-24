@@ -8,20 +8,20 @@ use crate::{
     },
 };
 
-pub struct SecretBuffer {
+pub struct SecretVector {
     buf: Zeroizing<Vec<u8>>,
     lock_strategy: LockStrategy,
     zeroize_policy: ZeroizePolicy,
 }
 
-impl SecretBuffer {
+impl SecretVector {
     #[allow(private_interfaces)]
     pub fn new(
-        size: usize,
+        bytes: &[u8],
         lock_strategy: LockStrategy,
         zeroize_policy: ZeroizePolicy,
     ) -> Result<Self, CoreError> {
-        let mut buf = Zeroizing::new(vec![0u8; size]);
+        let mut buf = Zeroizing::new(bytes.to_vec());
         lock::lock_memory(&mut buf, lock_strategy)?;
         Ok(Self {
             buf,
@@ -47,7 +47,7 @@ impl SecretBuffer {
     }
 }
 
-impl Drop for SecretBuffer {
+impl Drop for SecretVector {
     fn drop(&mut self) {
         if self.lock_strategy != LockStrategy::None {
             lock::unlock_memory(&mut self.buf);
