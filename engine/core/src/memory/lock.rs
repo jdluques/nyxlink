@@ -1,4 +1,4 @@
-use crate::errors::{CoreError, internal::ResourceError};
+use crate::errors::internal::ResourceError;
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub(crate) enum LockStrategy {
