@@ -1,27 +1,16 @@
-use core::fmt;
+pub mod kind;
 
-#[derive(Debug, Copy, Clone, Eq, PartialEq)]
-pub(crate) struct StorageEntryId(u64);
+pub(crate) use self::kind::StorageEntryKind;
 
-#[derive(Debug, Copy, Clone)]
-pub(crate) enum StorageEntryKind {
-    Identity,
-    Session,
-    Capability,
-    PreKey,
-    MessageState,
-}
+use super::backend::StorageBackendPolicy;
+use crate::errors::CoreError;
 
-impl fmt::Display for StorageEntryKind {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        use StorageEntryKind::*;
+pub(super) trait StorageEntry: Sized {
+    const KIND: StorageEntryKind;
+    const BACKEND: StorageBackendPolicy;
 
-        match self {
-            Identity => write!(f, "Identity"),
-            Session => write!(f, "Session"),
-            Capability => write!(f, "Capability"),
-            PreKey => write!(f, "PreKey"),
-            MessageState => write!(f, "Message state"),
-        }
-    }
+    fn derive_id(&self) -> Vec<u8>;
+
+    fn encode(&self) -> &[u8];
+    fn decode(bytes: &[u8]) -> Result<Self, CoreError>;
 }

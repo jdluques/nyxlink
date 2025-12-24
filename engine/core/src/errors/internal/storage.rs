@@ -1,21 +1,18 @@
 use core::{error::Error, fmt};
 
-use crate::storage::entry::{StorageEntryId, StorageEntryKind};
+use crate::storage::entry::StorageEntryKind;
 
 #[derive(Debug)]
 pub(crate) enum StorageError {
     NotFound {
         kind: StorageEntryKind,
-        id: StorageEntryId,
     },
     Corrupted {
         kind: StorageEntryKind,
-        id: StorageEntryId,
         context: &'static str,
     },
     PermissionDenied {
         kind: StorageEntryKind,
-        id: StorageEntryId,
     },
     Unavailable,
     OutOfSpace,
@@ -26,16 +23,13 @@ impl fmt::Display for StorageError {
         use StorageError::*;
 
         match self {
-            #[allow(unused_variables)]
-            NotFound { kind, id } => {
+            NotFound { kind } => {
                 write!(f, "Storage entry not found ({})", kind)
             }
-            #[allow(unused_variables)]
-            Corrupted { kind, id, context } => {
+            Corrupted { kind, context } => {
                 write!(f, "Storage corrupted ({}): {}", kind, context)
             }
-            #[allow(unused_variables)]
-            PermissionDenied { kind, id } => {
+            PermissionDenied { kind } => {
                 write!(f, "Storage permission denied ({})", kind)
             }
             Unavailable => {
