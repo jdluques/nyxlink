@@ -1,6 +1,9 @@
 use core::{error::Error, fmt};
 
-use crate::crypto::{algorithms::*, rng::RandomnessSource};
+use crate::crypto::{
+    algorithms::{self, *},
+    rng::RandomnessSource,
+};
 
 #[derive(Debug)]
 pub(crate) enum PrimitiveError {
@@ -14,7 +17,6 @@ pub(crate) enum PrimitiveError {
     },
     VerificationFailed {
         scheme: SignatureScheme,
-        context: &'static str,
     },
     EncryptionFailed {
         aead: AEAD,
@@ -55,8 +57,8 @@ impl fmt::Display for PrimitiveError {
 
             InvalidNonce { context } => write!(f, "Invalid nonce: {}", context),
 
-            VerificationFailed { scheme, context } => {
-                write!(f, "Verification failed using {:?}: {}", scheme, context)
+            VerificationFailed { scheme } => {
+                write!(f, "Verification failed using {:?}", scheme)
             }
 
             EncryptionFailed { aead, context } => {
@@ -83,3 +85,11 @@ impl fmt::Display for PrimitiveError {
 }
 
 impl Error for PrimitiveError {}
+
+impl From<ed25519_dalek::ed25519::Error> for PrimitiveError {
+    fn from(err: ed25519_dalek::ed25519::Error) -> Self {
+        PrimitiveError::VerificationFailed {
+            scheme: algorithms::SignatureScheme::Ed25519,
+        }
+    }
+}
