@@ -1,6 +1,7 @@
-#[cfg(test)]
-use rand::rngs::StdRng;
-use rand_core::{OsRng, TryRngCore};
+use rand::{
+    RngCore,
+    rngs::{OsRng, StdRng},
+};
 
 use crate::errors::internal::PrimitiveError;
 
@@ -12,7 +13,6 @@ pub(crate) enum RandomnessSource {
 
 pub(crate) enum InnerRng {
     OS(OsRng),
-    #[cfg(test)]
     STD(StdRng),
 }
 
@@ -47,13 +47,12 @@ impl SecureRng {
     pub(crate) fn fill(&mut self, out: &mut [u8]) -> Result<(), PrimitiveError> {
         match &mut self.inner {
             InnerRng::OS(rng) => fill_helper(rng, out, self.source),
-            #[cfg(test)]
             InnerRng::STD(rng) => fill_helper(rng, out, self.source),
         }
     }
 }
 
-fn fill_helper<R: TryRngCore>(
+fn fill_helper<R: RngCore>(
     rng: &mut R,
     buf: &mut [u8],
     source: RandomnessSource,

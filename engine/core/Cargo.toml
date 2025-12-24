@@ -12,10 +12,7 @@ libc = "0.2.178"
 windows-sys = { version = "0.61.2", features = ["Win32_Foundation", "Win32_System_Memory"] }
 zeroize = "1.8.2"
 sha2 = "0.10.9"
-rand_core = "0.9.3"
-
-[dev-dependencies]
-rand = "0.9.2"
+rand = "0.8.5"
 
 [profile.release]
 opt-level = "z"
