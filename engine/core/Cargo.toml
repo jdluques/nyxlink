@@ -14,7 +14,8 @@ zeroize = "1.8.2"
 sha2 = "0.10.9"
 rand = "0.8.5"
 nostd_cow = "0.1.0"
-ed25519-dalek = { version = "2.2.0", features = ["rand_core"]}
+ed25519-dalek = { version = "2.2.0", features = ["rand_core"] }
+x25519-dalek = { version = "2.0.1", features = ["static_secrets"] }
 
 [profile.release]
 opt-level = "z"
