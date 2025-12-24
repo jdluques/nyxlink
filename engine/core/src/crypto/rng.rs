@@ -5,24 +5,24 @@ use rand_core::{OsRng, TryRngCore};
 use crate::errors::internal::PrimitiveError;
 
 #[derive(Debug, Clone, Copy)]
-pub enum RandomnessSource {
+pub(crate) enum RandomnessSource {
     OS,
     Deterministic,
 }
 
-pub enum InnerRng {
+pub(crate) enum InnerRng {
     OS(OsRng),
     #[cfg(test)]
     STD(StdRng),
 }
 
-pub struct SecureRng {
+pub(crate) struct SecureRng {
     inner: InnerRng,
     source: RandomnessSource,
 }
 
 impl SecureRng {
-    pub fn new() -> Self {
+    pub(crate) fn new() -> Self {
         #[cfg(not(test))]
         {
             Self {
@@ -44,7 +44,7 @@ impl SecureRng {
         }
     }
 
-    pub fn fill(&mut self, out: &mut [u8]) -> Result<(), PrimitiveError> {
+    pub(crate) fn fill(&mut self, out: &mut [u8]) -> Result<(), PrimitiveError> {
         match &mut self.inner {
             InnerRng::OS(rng) => fill_helper(rng, out, self.source),
             #[cfg(test)]
