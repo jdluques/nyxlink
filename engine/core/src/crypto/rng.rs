@@ -1,5 +1,5 @@
 use rand::{
-    RngCore,
+    CryptoRng, RngCore,
     rngs::{OsRng, StdRng},
 };
 
@@ -45,18 +45,41 @@ impl SecureRng {
     }
 
     pub(crate) fn fill(&mut self, out: &mut [u8]) -> Result<(), PrimitiveError> {
+        self.try_fill_bytes(out)
+            .map_err(|_| PrimitiveError::RandomnessUnavailable {
+                source: self.source,
+            })
+    }
+}
+
+impl RngCore for SecureRng {
+    fn next_u32(&mut self) -> u32 {
         match &mut self.inner {
-            InnerRng::OS(rng) => fill_helper(rng, out, self.source),
-            InnerRng::STD(rng) => fill_helper(rng, out, self.source),
+            InnerRng::OS(rng) => rng.next_u32(),
+            InnerRng::STD(rng) => rng.next_u32(),
+        }
+    }
+
+    fn next_u64(&mut self) -> u64 {
+        match &mut self.inner {
+            InnerRng::OS(rng) => rng.next_u64(),
+            InnerRng::STD(rng) => rng.next_u64(),
+        }
+    }
+
+    fn fill_bytes(&mut self, dest: &mut [u8]) {
+        match &mut self.inner {
+            InnerRng::OS(rng) => rng.fill_bytes(dest),
+            InnerRng::STD(rng) => rng.fill_bytes(dest),
+        }
+    }
+
+    fn try_fill_bytes(&mut self, dest: &mut [u8]) -> Result<(), rand::Error> {
+        match &mut self.inner {
+            InnerRng::OS(rng) => rng.try_fill_bytes(dest),
+            InnerRng::STD(rng) => rng.try_fill_bytes(dest),
         }
     }
 }
 
-fn fill_helper<R: RngCore>(
-    rng: &mut R,
-    buf: &mut [u8],
-    source: RandomnessSource,
-) -> Result<(), PrimitiveError> {
-    rng.try_fill_bytes(buf)
-        .map_err(|_| PrimitiveError::RandomnessUnavailable { source })
-}
+impl CryptoRng for SecureRng {}
