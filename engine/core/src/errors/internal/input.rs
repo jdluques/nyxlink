@@ -5,6 +5,7 @@ pub(crate) enum InputError {
     InvalidLength { expected: usize, actual: usize },
     InvalidFormat { context: &'static str },
     InvalidValue { context: &'static str },
+    MissingValue { context: &'static str },
 }
 
 impl fmt::Display for InputError {
@@ -20,6 +21,9 @@ impl fmt::Display for InputError {
             }
             InvalidValue { context } => {
                 write!(f, "Invalid value: {}", context)
+            }
+            MissingValue { context } => {
+                write!(f, "Missing value: {}", context)
             }
         }
     }
