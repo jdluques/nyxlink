@@ -20,11 +20,9 @@ pub(crate) enum PrimitiveError {
     },
     EncryptionFailed {
         aead: AEAD,
-        context: &'static str,
     },
     DecryptionFailed {
         aead: AEAD,
-        context: &'static str,
     },
     DerivationFailed {
         kdf: KDF,
@@ -60,12 +58,12 @@ impl fmt::Display for PrimitiveError {
                 write!(f, "Verification failed using {:?}", scheme)
             }
 
-            EncryptionFailed { aead, context } => {
-                write!(f, "Encryption failed using {:?}: {}", aead, context)
+            EncryptionFailed { aead } => {
+                write!(f, "Encryption failed using {:?}", aead)
             }
 
-            DecryptionFailed { aead, context } => {
-                write!(f, "Decryption failed using {:?}:{}", aead, context)
+            DecryptionFailed { aead } => {
+                write!(f, "Decryption failed using {:?}", aead)
             }
 
             DerivationFailed { kdf } => {

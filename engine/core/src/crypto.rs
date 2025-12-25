@@ -1,3 +1,4 @@
+pub(crate) mod aead;
 pub(crate) mod algorithms;
 pub(crate) mod dh;
 pub(crate) mod hash;
