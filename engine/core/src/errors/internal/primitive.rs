@@ -28,7 +28,6 @@ pub(crate) enum PrimitiveError {
     },
     DerivationFailed {
         kdf: KDF,
-        context: &'static str,
     },
     RandomnessUnavailable {
         source: RandomnessSource,
@@ -69,8 +68,8 @@ impl fmt::Display for PrimitiveError {
                 write!(f, "Decryption failed using {:?}:{}", aead, context)
             }
 
-            DerivationFailed { kdf, context } => {
-                write!(f, "Key derivation failed using {:?}: {}", kdf, context)
+            DerivationFailed { kdf } => {
+                write!(f, "Key derivation failed using {:?}", kdf)
             }
 
             RandomnessUnavailable { source } => {

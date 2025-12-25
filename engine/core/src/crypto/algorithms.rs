@@ -21,5 +21,5 @@ pub(crate) enum Hash {
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 #[allow(non_camel_case_types)]
 pub(crate) enum KDF {
-    HKDF_SHA256,
+    HKDF_SHA512,
 }
