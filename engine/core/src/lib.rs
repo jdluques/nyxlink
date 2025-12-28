@@ -1,3 +1,4 @@
+pub mod capability;
 pub mod crypto;
 pub mod errors;
 pub mod identity;
