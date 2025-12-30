@@ -1,7 +1,7 @@
 use crate::{errors::internal::StorageError, storage::entry::StorageEntryKind};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub(super) enum StorageBackendPolicy {
+pub(crate) enum StorageBackendPolicy {
     MemoryOnly,
     PersistentPlaintext,
     PersistentEncrypted,

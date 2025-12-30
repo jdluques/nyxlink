@@ -5,7 +5,7 @@ pub(crate) use self::kind::StorageEntryKind;
 use super::backend::StorageBackendPolicy;
 use crate::errors::CoreError;
 
-pub(super) trait StorageEntry: Sized {
+pub(crate) trait StorageEntry: Sized {
     const KIND: StorageEntryKind;
     const BACKEND: StorageBackendPolicy;
 
